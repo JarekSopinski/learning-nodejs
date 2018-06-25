@@ -1,5 +1,7 @@
-const stuff = require('./stuff');
+const events = require('events');
 
-console.log(stuff.counter(['shaun', 'crystal', 'ryu']));
-console.log(stuff.adder(5,6));
-console.log(stuff.adder(5, stuff.pi))
+const myEmitter = new events.EventEmitter();
+
+myEmitter.on('someEvent', (msg) => {console.log(msg)});
+
+myEmitter.emit('someEvent', 'the event was emitted');
