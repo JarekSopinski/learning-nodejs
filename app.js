@@ -1,19 +1,12 @@
-const fs = require('fs');
+const http = require('http');
 
-//fs.unlink('writeMe.txt');
-// delete file, but watch out - using it again will ofc cause an error
+const port = 3000;
+const hostname = '192.168.0.24';
 
-//fs.mkdirSync('stuff'); // create directory (sync way)
-//fs.rmdirSync('stuff'); // remove directory (sync way)
-// notice than rm won't work is dir isn't empty! First use unlink do delete files.
-
-// CREATING AND FILLING DIRECTORY (ASYNC WAY):
-
-fs.mkdir('stuff', () => { 
-    // async version takes callback as 2nd param fired upon finishing
-    fs.readFile('readMe.txt', 'utf8', (error, data) => {
-        fs.writeFile('./stuff/writeMe.txt', data)
-    })
+const server = http.createServer(function(req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'})
+    res.end('Hello World')
 });
-// first creates directory 'stuff', than reads data,
-//than writes this data in a new file in 'stuff' directory
+
+server.listen(port, hostname);
+console.log('Yo dawgs, now listening to port 3000')
