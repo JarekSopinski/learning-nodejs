@@ -1,28 +1,20 @@
-const events = require('events');
-const util = require('util');
+const fs = require('fs');
 
-// const Person = function(name){this.name = name};
+/*
+SYNC METHODS
 
-// util.inherits(Person, events.EventEmitter);
+const readMe = fs.readFileSync('readMe.txt', 'utf8');
+console.log(readMe); // logs the content of file
 
-class Person extends events.EventEmitter{
-    constructor(name){
-        super();
-        this.name = name
-    }
-};
+fs.writeFileSync('writeMe.txt', readMe); 
+// writes the content of readMe file (2nd param) to writeMe file (1st param)
+*/
 
-const james = new Person('james');
-const mary = new Person('mary');
-const ryu = new Person('ryu');
+// ASYNC METHODS
 
-const people = [james, mary, ryu];
-
-people.forEach(person => {
-    person.on('speak', (msg) => {
-        console.log(`${person.name} said ${msg}`)
-    })
+fs.readFile('readMe.txt', 'utf8', (error, data) => {
+    console.log(data);
+    fs.writeFile('writeMeAsync.txt', data)
 });
-
-james.emit('speak', 'hey dudes');
-ryu.emit('speak', 'I wanna curry');
+// because its async, it requires 3rd param - a callback to fire upon finishing
+// this callback than takes two params: error and retrieved data
