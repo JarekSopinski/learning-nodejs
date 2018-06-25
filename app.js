@@ -1,7 +1,21 @@
 const events = require('events');
+const util = require('util');
 
-const myEmitter = new events.EventEmitter();
+const Person = function(name){this.name = name};
 
-myEmitter.on('someEvent', (msg) => {console.log(msg)});
+util.inherits(Person, events.EventEmitter);
 
-myEmitter.emit('someEvent', 'the event was emitted');
+const james = new Person('james');
+const mary = new Person('mary');
+const ryu = new Person('ryu');
+
+const people = [james, mary, ryu];
+
+people.forEach(person => {
+    person.on('speak', (msg) => {
+        console.log(`${person.name} said ${msg}`)
+    })
+});
+
+james.emit('speak', 'hey dudes');
+ryu.emit('speak', 'I wanna curry');
