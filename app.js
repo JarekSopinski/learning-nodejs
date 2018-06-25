@@ -1,20 +1,19 @@
 const fs = require('fs');
 
-/*
-SYNC METHODS
+//fs.unlink('writeMe.txt');
+// delete file, but watch out - using it again will ofc cause an error
 
-const readMe = fs.readFileSync('readMe.txt', 'utf8');
-console.log(readMe); // logs the content of file
+//fs.mkdirSync('stuff'); // create directory (sync way)
+//fs.rmdirSync('stuff'); // remove directory (sync way)
+// notice than rm won't work is dir isn't empty! First use unlink do delete files.
 
-fs.writeFileSync('writeMe.txt', readMe); 
-// writes the content of readMe file (2nd param) to writeMe file (1st param)
-*/
+// CREATING AND FILLING DIRECTORY (ASYNC WAY):
 
-// ASYNC METHODS
-
-fs.readFile('readMe.txt', 'utf8', (error, data) => {
-    console.log(data);
-    fs.writeFile('writeMeAsync.txt', data)
+fs.mkdir('stuff', () => { 
+    // async version takes callback as 2nd param fired upon finishing
+    fs.readFile('readMe.txt', 'utf8', (error, data) => {
+        fs.writeFile('./stuff/writeMe.txt', data)
+    })
 });
-// because its async, it requires 3rd param - a callback to fire upon finishing
-// this callback than takes two params: error and retrieved data
+// first creates directory 'stuff', than reads data,
+//than writes this data in a new file in 'stuff' directory
