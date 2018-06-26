@@ -4,11 +4,7 @@ const fs = require('fs');
 const myReadStream = fs.createReadStream(__dirname + '/someText.txt', 'utf8');
 const myWriteStream = fs.createWriteStream(__dirname + '/writeMe.txt')
 
-myReadStream.on('data', function(chunk) {
-   console.log('new chunk recived');
-    //console.log(chunk);
-    myWriteStream.write(chunk)
-})
+myReadStream.pipe(myWriteStream)
 
 /*
 const port = 3000;
