@@ -6,9 +6,9 @@ const hostname = '192.168.0.24';
 
 const server = http.createServer(function(req, res) {
 
-    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.writeHead(200, {'Content-Type': 'text/html'});
 
-    const myReadStream = fs.createReadStream(__dirname + '/someText.txt', 'utf8');
+    const myReadStream = fs.createReadStream(__dirname + '/index.html', 'utf8');
     myReadStream.pipe(res)
     
 });
