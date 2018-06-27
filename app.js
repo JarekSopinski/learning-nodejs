@@ -7,7 +7,7 @@ const app = express();
 app.set('view engine', 'ejs');
 
 // requesting static files
-app.use(express.static('./public'));
+app.use('/public', express.static(__dirname + '/public'));
 
 // fire controllers
 todoController(app);
